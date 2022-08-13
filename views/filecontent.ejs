@@ -1,0 +1,203 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  
+</head>
+
+<body>
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><h3><strong>CSV UPLOAD</strong></h3> </a>
+    <img src="https://cdn-icons-png.flaticon.com/64/892/892311.png">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        
+        
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!-- Navbar-End -->
+<!-- Upload container -->
+  <div class="container ">
+    <div class=" nav justify-content-center shadow-none p-3 mb-5 bg-light rounded" style="margin-top:10vh;">
+      <div class="card mb-3 shadow p-3 mb-5 bg-body bg-warning" style="width: 25vw;">
+        <div class="card-header bg-light">
+          <h5 class="display-7 text-danger"><strong>UPLOAD CSV FILE</strong></h5>
+        </div>
+        <div class="card-body">
+          <form action="/" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+              <input class="form-control" type="file" id="formFile" name="csv" accept=".csv" required>
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-m btn-danger">Submit</button></div>
+          </form>
+        </div>
+      </div>
+    </div><br>
+    <!-- upload end -->
+
+    <!-- Input for search based on name  -->
+    <div class="input-group mb-3" style="width: 19vw;">
+      <span class="input-group-text" id="inputGroup-sizing-default">Search </span>
+      <input type="text" class="form-control" placeholder="Search by name" id="myInput" onkeyup="myFunction()" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+    <!-- <div class="text-dark p-2 bg-dark">
+    <label for="myInput">SEARCH</label>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by name ">
+    </div> -->
+
+    <%if(data){%>
+      <div>
+        <div align="center">
+          <table id="myTable" style="width:45vw" border="1" cellpadding="5">
+            <!-- <thead> -->
+            <tr class="bg-dark bg-gradient">
+              <th class="text-light p-2 text-center">SNo</th>
+              <th class="text-light p-2 text-center"  style="padding-right: 1em">First Name&nbsp;&nbsp;<img onclick="sortTable(1)" style="width:18px ;height:18px; cursor: pointer;" src="https://cdn-icons-png.flaticon.com/24/806/806451.png"></th>
+              <th class="text-light p-2 text-center" style="padding-right: 1em">Last Name&nbsp;&nbsp;<img onclick="sortTable(2)" style="width:18px ;height:18px; cursor: pointer;" src="https://cdn-icons-png.flaticon.com/24/806/806451.png"></th>
+              <th class="text-light p-2 text-center"  style="padding-right:2em;padding-left:2em;">Age&nbsp;&nbsp;<img onclick="sortTable(3)" style="width:18px ;height:18px; cursor: pointer;" src="https://cdn-icons-png.flaticon.com/24/806/806451.png"></th>
+            </tr>
+            <!-- </thead> -->
+            <!-- <tbody style="overflow-x: scroll; height:350px;" class="table-bordered"> -->
+            <%for(var i=0;i< data.length;i++){%>
+              <tr class="text-center">
+                <td>
+                  <%= i+1%>
+                </td>
+                
+                <td style="padding-right: 1em">
+                  <%= data[i].FirstName%>
+                </td>
+                <td style="padding-left: 1em;">
+                  <%= data[i].LastName%>
+                </td>
+                <td style="padding-right:1em;padding-left:1em;">
+                  <%= data[i].age%>
+                </td>
+              
+
+              </tr>
+              <%}%>
+                <!-- </tbody> -->
+          </table>
+        </div>
+      </div>
+      <%}%>
+        <br>
+ <!--Searching Name   -->
+<script>
+function myFunction() {
+  console.log("enter into script");
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  console.log("tr",tr);
+  console.log("table",table);
+
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+  
+}
+</script>
+ <!--Searching Name-End   -->
+
+<!-- Sorting script -->
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+<!-- Sorting-End script -->
+
+</body>
+
+</html>

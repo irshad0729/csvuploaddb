@@ -1,0 +1,99 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><h3><strong>CSV UPLOAD</strong></h3> </a>
+    <img src="https://cdn-icons-png.flaticon.com/64/892/892311.png">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        
+        
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!-- Navbar-End -->
+
+<!-- Upload container -->
+  <div class="container ">
+    <div class=" nav justify-content-center shadow-none p-3 mb-5 bg-light rounded" style="margin-top:10vh;">
+      <div class="card mb-3 shadow p-3 mb-5 bg-body bg-warning" style="width: 25vw;">
+        <div class="card-header bg-light">
+          <h5 class="display-7 text-danger"><strong>UPLOAD CSV FILE</strong></h5>
+        </div>
+        <div class="card-body">
+          <form action="/" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+              <!--  validation accept=".csv" : it doesn't show other than CSV file -->
+              <input class="form-control" type="file" id="formFile" name="csv" accept=".csv">
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-m btn-danger">Submit</button></div>
+          </form>
+        </div>
+      </div>
+    </div><br>
+    <!-- upload end -->
+    <%if(files){%>
+      <div>
+        <div align="center" class="shadow-none p-3 mb-3 bg-light rounded">
+          <table style="width: 25vw"  class="shadow p-3 mb-5 bg-body rounded" cellpadding="5">
+            <!-- <thead> -->
+            <tr class="text-light bg-gradient p-3 text-center bg-dark">
+              <th class="fw-semibold">SNO</th>
+              <th class="fw-semibold" style="padding-right: 1em" >FILE NAME</th>
+            </tr>
+            <!-- </thead> -->
+            <!-- <tbody style="overflow-x: scroll; height:350px;" class="table-bordered"> -->
+            <%for(var i=0;i< files.length;i++){%>
+              <tr class="text-center">
+                <td style="width: 5vw">
+                  <%= i+1%>
+                </td>
+                
+                <td style="padding-right: 1em" style="width: 20vw">
+                  <a 
+                  class=""
+                  href="/filecontent/?filename=<%=files[i]%>">
+                  <%=files[i]%></a>
+                </td>
+            </tr>
+              <%}%>
+                <!-- </tbody> -->
+          </table>
+        </div>
+      </div>
+      <%}%>
+        <br>
+
+        <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+
+</html>
