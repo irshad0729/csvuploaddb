@@ -4,6 +4,21 @@ const express = require("express");
 // required mongoose
 const mongoose = require("mongoose");
 
+// provide the path of the database on mongodb atlas
+const DB =
+  "mongodb+srv://root:root@cluster0.uvvwmyo.mongodb.net/csvupload?retryWrites=true&w=majority";
+
+// Established the connection to database
+
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log("Mongo Atlas server connected ");
+  })
+  .catch((err) => {
+    console.log("error", err);
+  });
+
 // required multer
 const multer = require("multer");
 
@@ -48,10 +63,10 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage: storage });
 
 //connect to db
-mongoose
-  .connect("mongodb://localhost:27017/csvupload", { useNewUrlParser: true })
-  .then(() => console.log("connected to db"))
-  .catch((err) => console.log(err));
+// mongoose
+//   .connect("mongodb://localhost:27017/csvupload", { useNewUrlParser: true })
+//   .then(() => console.log("connected to db"))
+//   .catch((err) => console.log(err));
 
 //init app
 const app = express();
